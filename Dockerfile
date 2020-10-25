@@ -7,12 +7,12 @@ RUN apk add --no-cache alpine-sdk perl
 RUN curl -L https://github.com/microsoft/pict/archive/v${PICT_VER}.tar.gz \
     | tar -xz -C /tmp \
     && cd /tmp/pict-${PICT_VER} \
-    && make \
-    && make test
+    && make
 
 FROM alpine:${ALPINE_VER}
 ARG PICT_VER
 RUN apk add --no-cache libstdc++
 COPY --from=builder /tmp/pict-${PICT_VER}/pict /usr/local/bin/pict
-WORKDIR /pict
-ENTRYPOINT [ "/usr/local/bin/pict" ]
+COPY --from=builder /tmp/pict-${PICT_VER}/LICENSE.TXT /
+COPY entrypoint.sh /
+ENTRYPOINT [ "/entrypoint.sh" ]
