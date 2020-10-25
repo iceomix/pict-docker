@@ -8,6 +8,7 @@ name: Anchore Container Scan
 on:
   schedule:
     - cron: "0 3 * * *"
+  workflow_dispatch:
 jobs:
   Anchore-Build-Scan:
     runs-on: ubuntu-latest
