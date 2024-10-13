@@ -1,9 +1,9 @@
 ARG PICT_VER=3.7.4
-ARG ALPINE_VER=3.19
+ARG ALPINE_VER=3.20
 
 FROM alpine:${ALPINE_VER} AS builder
 ARG PICT_VER
-RUN apk add --no-cache alpine-sdk perl
+RUN apk add --no-cache alpine-sdk perl curl
 RUN curl -L https://github.com/microsoft/pict/archive/v${PICT_VER}.tar.gz \
     | tar -xz -C /tmp \
     && cd /tmp/pict-${PICT_VER} \
